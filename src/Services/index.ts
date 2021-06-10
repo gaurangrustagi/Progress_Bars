@@ -9,6 +9,6 @@ const api = () => {
     })
 }
 
-export const getData = () => {
-    return api().get<IGetQueryResponse>(barPath)
+export const getData = async () => {
+    return await api().get<IGetQueryResponse>(barPath)
 }
