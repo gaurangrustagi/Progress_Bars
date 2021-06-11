@@ -43,7 +43,8 @@ class Layout extends Component<IProps, IState> {
         const {bars,activeUnit} = this.state
         const newBars = bars && bars.map((elem,i) => {
             if(i == activeUnit){
-                return elem + amount
+                const newVal = elem + amount >= 0 ? elem+amount : 0
+                return newVal
             }
             return elem
         })
