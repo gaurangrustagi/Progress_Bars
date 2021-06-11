@@ -1,37 +1,40 @@
 import { Component } from 'react';
-import { Progress, Button, Typography } from 'antd';
+import { Progress, Button, Typography, Radio } from 'antd';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import "bootstrap/dist/css/bootstrap.min.css";
+import  Layout  from './Layout';
 import { IGetQueryResponse } from '../Interfaces';
 import { getData } from '../Services';
+import { Container, Row, Col } from 'react-bootstrap';
 const { Title } = Typography
 
-interface IState extends IGetQueryResponse { }
+interface IState{
+    data: IGetQueryResponse | null
+}
 
-class ProgressBars extends Component<IState> {
+class ProgressBars extends Component<{}, IState> {
     constructor(props: any) {
         super(props)
         this.state = {
-            bars: [],
-            buttons: [],
-            limit: 0,
+           data: null
         }
     }
-    componentDidMount() {
-        this.getInitialValues()
+    async componentDidMount() {
+        await this.getInitialValues()
     }
     getInitialValues = async () => {
         const response = await getData()
-        const { bars, buttons, limit } = { ...response.data }
+        console.log(response)
         this.setState({
-            bars,
-            buttons,
-            limit
+            data: {... response.data}
         })
     }
     render() {
+        // const { bars, buttons, limit } = this.state
+        console.log(this.state)
         return (
             <>
-                <Title level={2} style={{alignSelf: 'center'}}>Progress Bars</Title>
+                <Layout data={this.state.data}/>
             </>
         )
     }
