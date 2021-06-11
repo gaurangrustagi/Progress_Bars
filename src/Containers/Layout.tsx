@@ -1,18 +1,18 @@
 import { Component } from 'react';
-import { Progress, Button, Typography, Radio } from 'antd';
-import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { Progress, Typography, Select } from 'antd';
 import { IGetQueryResponse } from '../Interfaces';
-import { getData } from '../Services';
 import { Container, Row, Col } from 'react-bootstrap';
-import ProgressUnit from './ProgressUnit';
+import { Button, ButtonGroup } from 'reactstrap';
 
 const { Title } = Typography
-
+const { Option } = Select;
 
 interface IProps {
     data: IGetQueryResponse | null
 }
-interface IState extends IGetQueryResponse { }
+interface IState extends IGetQueryResponse {
+    activeUnit: number
+}
 
 class Layout extends Component<IProps, IState> {
     constructor(props: any) {
@@ -21,6 +21,7 @@ class Layout extends Component<IProps, IState> {
             bars: undefined,
             buttons: undefined,
             limit: 0,
+            activeUnit: 0,
         }
     }
     componentDidUpdate(prevProps: IProps) {
@@ -33,25 +34,52 @@ class Layout extends Component<IProps, IState> {
             })
         }
     }
-
+    handleOptionChange = (event: number) => {
+        this.setState({
+            activeUnit: event
+        })
+    }
     render() {
-        // const { bars, buttons, limit } = this.state
+        const { bars, buttons, limit,activeUnit } = this.state
         console.log(this.state)
         return (
             <>
                 <Title style={{ alignSelf: 'center', alignItems: 'center', alignContent: 'center', display: 'flex' }}>Progress Bars</Title>
                 <Container>
-                    {this.props && this.props.data && this.props.data.bars &&
-                        this.props.data.bars.map((elem, i) => (
+                    {this.state && bars && limit &&
+                        bars.map((elem, i) => (
                             <Row key={i} >
                                 <Col style={{ margin: '70px' }} >
-                                    <Progress percent={elem} />
+                                    <Progress showInfo={false} status={elem > limit ? 'exception' : i==activeUnit? 'active' : 'normal'} percent={elem} />
                                 </Col>
                                 <Col>
-                                    <Progress type="circle" percent={elem} />
+                                    <Progress type="circle" percent={elem} status={elem > limit ? 'exception' : i==activeUnit? 'active' : 'normal'} />
                                 </Col>
                             </Row>
                         ))}
+                    <Row>
+                        <Col>
+                            <Select defaultValue={0} style={{ width: 120 }} onChange={this.handleOptionChange}>
+                                {this.state && bars &&
+                                    bars.map((elem, i) => (
+                                        <Option key={i} value={i}>
+                                            {"Progress " + i.toString()}
+                                        </Option>
+                                    ))}
+                            </Select>
+                        </Col>
+                        <Col>
+                            <ButtonGroup>
+                                {this.state && buttons && buttons.map((elem, i) => {
+                                    return (
+                                        <Button key={i}>{elem.toString()}</Button>
+                                    )
+                                })
+                                }
+                            </ButtonGroup>
+                        </Col>
+
+                    </Row>
                 </Container>
             </>
         )
