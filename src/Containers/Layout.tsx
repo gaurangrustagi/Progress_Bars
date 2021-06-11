@@ -54,7 +54,6 @@ class Layout extends Component<IProps, IState> {
     }
     render() {
         const { bars, buttons, limit,activeUnit } = this.state
-        console.log(this.state)
         return (
             <>
                 <Title style={{ alignSelf: 'center', alignItems: 'center', alignContent: 'center', display: 'flex' }}>Progress Bars</Title>
@@ -76,7 +75,7 @@ class Layout extends Component<IProps, IState> {
                                 {this.state && bars &&
                                     bars.map((elem, i) => (
                                         <Option key={i} value={i}>
-                                            {"Progress " + i.toString()}
+                                            {"Progress " + (i+1).toString()}
                                         </Option>
                                     ))}
                             </Select>
