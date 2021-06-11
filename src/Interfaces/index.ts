@@ -1,5 +1,5 @@
 export interface IGetQueryResponse {
-    buttons?: [Number];
-    bars?:[Number];
-    limit?: Number;
+    buttons?: [number];
+    bars?:[number];
+    limit?: number;
 }   

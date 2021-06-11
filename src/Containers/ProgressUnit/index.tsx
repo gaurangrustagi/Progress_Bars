@@ -8,40 +8,23 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 
 interface IProps {
-    percent: Number | undefined
+    percent: number | undefined
 }
 
-interface IState extends IGetQueryResponse { }
 
+class ProgressUnit extends Component<IProps> {
 
-class ProgressBars extends Component<IProps, IState> {
-    constructor(props: any) {
-        super(props)
-        this.state = {
-            bars: undefined,
-            buttons: undefined,
-            limit: 0,
-        }
-    }
-    componentDidMount() {
-        this.getInitialValues()
-    }
-    getInitialValues = async () => {
-        const response = await getData()
-        const { bars, buttons, limit } = { ...response.data }
-        this.setState({
-            bars,
-            buttons,
-            limit
-        })
-    }
     render() {
-        const { bars, buttons, limit } = this.state
+        const { percent } = this.props
         return (
             <>
+                <Progress type="circle" percent={percent} />
+                <br />
+                {/* <Progress percent={percent} /> */}
+
             </>
         )
     }
 }
 
-export default ProgressBars
+export default ProgressUnit
