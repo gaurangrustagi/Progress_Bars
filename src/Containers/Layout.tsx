@@ -39,6 +39,19 @@ class Layout extends Component<IProps, IState> {
             activeUnit: event
         })
     }
+    onButtonPress = (amount:number) => {
+        const {bars,activeUnit} = this.state
+        const newBars = bars && bars.map((elem,i) => {
+            if(i == activeUnit){
+                return elem + amount
+            }
+            return elem
+        })
+        this.setState({
+            bars: newBars
+        })
+
+    }
     render() {
         const { bars, buttons, limit,activeUnit } = this.state
         console.log(this.state)
@@ -72,7 +85,7 @@ class Layout extends Component<IProps, IState> {
                             <ButtonGroup>
                                 {this.state && buttons && buttons.map((elem, i) => {
                                     return (
-                                        <Button key={i}>{elem.toString()}</Button>
+                                        <Button key={i} onClick={e => this.onButtonPress(elem)}>{elem.toString()}</Button>
                                     )
                                 })
                                 }
