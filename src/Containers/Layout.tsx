@@ -63,7 +63,7 @@ class Layout extends Component<IProps, IState> {
                         bars.map((elem, i) => (
                             <Row key={i} >
                                 <Col style={{ margin: '70px' }} >
-                                    <Progress showInfo={false} status={elem > limit ? 'exception' : i==activeUnit? 'active' : 'normal'} percent={elem} />
+                                    <Progress status={elem > limit ? 'exception' : i==activeUnit? 'active' : 'normal'} percent={elem} />
                                 </Col>
                                 <Col>
                                     <Progress type="circle" percent={elem} status={elem > limit ? 'exception' : i==activeUnit? 'active' : 'normal'} />

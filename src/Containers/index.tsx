@@ -24,14 +24,11 @@ class ProgressBars extends Component<{}, IState> {
     }
     getInitialValues = async () => {
         const response = await getData()
-        console.log(response)
         this.setState({
             data: {... response.data}
         })
     }
     render() {
-        // const { bars, buttons, limit } = this.state
-        console.log(this.state)
         return (
             <>
                 <Layout data={this.state.data}/>
