@@ -1,11 +1,9 @@
-import { Component } from 'react';
-import { Progress, Button, Typography, Radio } from 'antd';
-import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { Typography } from 'antd';
 import "bootstrap/dist/css/bootstrap.min.css";
-import  Layout  from './Layout';
+import { Component } from 'react';
 import { IGetQueryResponse } from '../Interfaces';
 import { getData } from '../Services';
-import { Container, Row, Col } from 'react-bootstrap';
+import Layout from './Layout';
 const { Title } = Typography
 
 interface IState{
